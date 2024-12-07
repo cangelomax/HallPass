@@ -7,10 +7,22 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+// Import the ProfileMenuComponent
+import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  declarations: [AppComponent, ProfileMenuComponent], // Declare ProfileMenuComponent
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot({
+      mode: 'md', // Use Material Design style
+      animated: true // Enable animations
+    }),
+    AppRoutingModule
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

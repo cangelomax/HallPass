@@ -1,0 +1,80 @@
+<ion-content>
+  <div class="ion-padding">
+    <!-- Background Section -->
+    <div class="background-section">
+      <!-- User Profile -->
+      <ion-row class="ion-align-items-center user-section" style="margin-bottom: 2rem;">
+        <ion-col size="auto">
+          <ion-avatar (click)="showProfileMenu($event)">
+            <img src="../../../assets/images/profile-icon.png" alt="User Profile" />
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <ion-text class="user-greeting" >
+            Hi, User!
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <!-- Profile Menu (Appears when 'menuVisible' is true) -->
+      <ion-list *ngIf="menuVisible">
+        <ion-item button (click)="logout()">
+          <ion-label>Logout</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- Where do you want to go? -->
+      <ion-text class="ion-text-center ion-margin-top college-header">
+        Where do
+      </ion-text>
+      <br>
+      <ion-text class="ion-text-center ion-margin-top college-header">
+        you want to go?
+      </ion-text>
+
+      <!-- Search Bar -->
+      <ion-searchbar
+        placeholder="Search"
+        class="college-search"
+        (ionInput)="filterColleges($event)"
+      ></ion-searchbar>
+    </div>
+
+    <!-- Categories -->
+    
+
+    <!-- College Section Header -->
+    <ion-text class="ion-text-start ion-margin-top section-header" *ngIf="filteredData.colleges.length > 0">
+      Colleges
+    </ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let college of filteredData.colleges">
+          <ion-card class="rounded-card" (click)="navigateToMap(college)">
+            <img [src]="college.imageUrl" [alt]="college.name" class="rounded-image" />
+            <ion-card-header>
+              <ion-card-title>{{ college.name }}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Utilities Section -->
+    <ion-text class="ion-text-start ion-margin-top section-header" *ngIf="filteredData.utilities.length > 0">
+      Utilities
+    </ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let utility of filteredData.utilities">
+          <ion-card class="rounded-card" (click)="navigateToMap(utility)">
+            <img [src]="utility.imageUrl" [alt]="utility.name" class="rounded-image" />
+            <ion-card-header>
+              <ion-card-title>{{ utility.name }}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

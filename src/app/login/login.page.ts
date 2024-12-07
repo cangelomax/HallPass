@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,10 @@ export class LoginPage implements OnInit {
   gEmail = "";
   gPassword = "";
 
-  constructor(private menuCtrl: MenuController) { }
+  constructor(
+    private menuCtrl: MenuController, 
+    private router: Router
+  ) { }
 
   ngOnInit() {}
 
@@ -41,7 +45,8 @@ export class LoginPage implements OnInit {
         // Signed in 
         const user = userCredential.user;
         console.log(user);
-        // Navigate to the map page or handle further logic
+        // Navigate to the colleges page after successful login
+        this.router.navigate(['/colleges']);
       })
       .catch((error) => {
         const errorCode = error.code;

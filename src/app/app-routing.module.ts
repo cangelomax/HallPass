@@ -4,37 +4,48 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'landing',  // Default route redirects to landing page
+    redirectTo: 'landing',
     pathMatch: 'full',
   },
   {
     path: 'landing',
-    loadChildren: () => import('./landing/landing.module').then(m => m.LandingPageModule), // Lazy load the landing page
+    loadChildren: () => import('./landing/landing.module').then(m => m.LandingPageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule), // Login page route
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
   },
   {
     path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule), // Signup page route
+    loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule),
   },
   {
     path: 'map',
-    loadChildren: () => import('./map/map.module').then(m => m.MapPageModule), // Map page route
+    loadChildren: () => import('./pages/map/map.module').then(m => m.MapPageModule),
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule), // Profile page route
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
   },
+  {
+    path: 'colleges',
+    loadChildren: () => import('./pages/colleges/colleges.module').then(m => m.CollegesPageModule),
+  },
+  // Catch-all route
+  {
+    path: '**',
+    redirectTo: 'colleges'  // Changed from 'home' to 'colleges'
+  }
 ];
-
-
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, { 
+      preloadingStrategy: PreloadAllModules,
+      onSameUrlNavigation: 'reload',
+      scrollPositionRestoration: 'enabled'
+    })
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,7 +1,7 @@
 // landing.page.scss
 ion-content {
   --background: none;
-  background-image: linear-gradient(rgba(25, 25, 50, 0.7), rgba(30, 30, 75, 0.5)), /* Darker bluish-gray gradient */
+  background-image: linear-gradient(rgba(25, 25, 50, 0.7), rgba(22, 22, 54, 0.5)), /* Darker bluish-gray gradient */
                     url('/assets/images/csuentrance.jpg');
   background-position: center;
   background-size: cover;
@@ -16,7 +16,7 @@ ion-content {
   justify-content: flex-end; /* Keeps content at the bottom */
   align-items: left;
   text-align: left;
-  padding: 16px;
+  padding: 24px;
   padding-bottom: 70px;
 }
 
@@ -36,8 +36,8 @@ p {
 }
 
 .get-started-btn {
-  --background: #4361ee; /* Base background color */
-  --background-hover: #3048b3; /* Hover background color */
+  --background: #701f1f; /* Base background color */
+  --background-hover: #420f0f; /* Hover background color */
   --border-radius: 25px;
   --padding-start: 2.5rem;
   --padding-end: 2.5rem;
@@ -48,6 +48,6 @@ p {
 
   /* Hover Effect */
   &:hover {
-    --background: #3048b3; /* Darker background on hover */
+    --background: #420f0f; /* Darker background on hover */
   }
 }

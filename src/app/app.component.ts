@@ -1,24 +1,53 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular'; // Import MenuController
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  activePage: string = '';  // To track the active page
+  showBottomNavbar: boolean = true;  // Flag to control the visibility of the bottom navbar
+
   constructor(private router: Router, private menuController: MenuController) {}
 
-  // Method to handle navigation to different pages
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateNavbarVisibility(event.urlAfterRedirects);
+      }
+    });
+  }
+
+  private updateNavbarVisibility(url: string) {
+    // Check the route and hide the navbar for landing, login, and signup pages
+    if (url.includes('landing') || url.includes('login') || url.includes('signup')) {
+      this.showBottomNavbar = false;
+    } else {
+      this.showBottomNavbar = true;
+    }
+
+    // Update the active page to highlight the correct button
+    if (url.includes('colleges')) {
+      this.activePage = 'colleges';
+    } else if (url.includes('map')) {
+      this.activePage = 'map';
+    } else if (url.includes('profile')) {
+      this.activePage = 'profile';
+    } else {
+      this.activePage = '';  // Default if no match
+    }
+  }
+
   navigateTo(page: string) {
-    this.menuController.close(); // Close the menu before navigating
-    this.router.navigate([`/${page}`]); // Navigates to the passed route
+    this.menuController.close();
+    this.router.navigate([`/${page}`]);
   }
 
   logout() {
-    // Add your logout logic here (e.g., clearing tokens, etc.)
-    this.menuController.close(); // Close the menu before logout
-    this.router.navigate(['/login']); // Redirect to login after logout
+    this.menuController.close();
+    this.router.navigate(['/login']);
   }
 }
