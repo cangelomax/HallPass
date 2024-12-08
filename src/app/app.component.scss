@@ -1,21 +1,74 @@
 /* Style the ion-list in the side menu */
 ion-menu {
-    --background: #ffffff;  /* White background for the entire menu */
+  --background: #ffffff;  /* White background for the entire menu */
+}
+
+ion-list {
+  --background: #ffffff;  /* White background for the list */
+  --color: #800000;        /* Blue text color */
+}
+
+ion-item {
+  --background: #ffffff;  /* White background for each item */
+  --color: #800000;        /* Blue text color for each item */
+}
+
+/* You can also customize the active or selected ion-item */
+ion-item[selected] {
+  --background: #e0e0e0;  /* Light gray background for selected items */
+  --color: #800000;        /* Blue text color */
+}
+
+ion-toolbar {
+  ion-icon {
+    font-size: 28px;   /* Adjust icon size */
+    color: #ffffff;    /* White icon color */
+    padding: 2px;
   }
-  
-  ion-list {
-    --background: #ffffff;  /* White background for the list */
-    --color: #0000ff;        /* Blue text color */
-  }
-  
-  ion-item {
-    --background: #ffffff;  /* White background for each item */
-    --color: #0000ff;        /* Blue text color for each item */
-  }
-  
-  /* You can also customize the active or selected ion-item */
-  ion-item[selected] {
-    --background: #e0e0e0;  /* Light gray background for selected items */
-    --color: #0000ff;        /* Blue text color */
-  }
-  
+}
+
+/* Bottom Navbar */
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+ion-tab-bar {
+  --background: #800000; /* Maroon background */
+  --color: white;        /* Default color for icons */
+}
+
+ion-tab-button {
+  --color: rgba(255, 255, 255, 0.7); /* Default icon color */
+  --color-selected: white;            /* Selected icon color */
+  transition: background-color 0.3s ease;
+}
+
+/* Active state for bottom navbar */
+ion-tab-button.selected {
+  --background: #ffffff !important;  /* White background for active tab */
+  --color: #ffffff !important;       /* White color for active tab */
+  background: rgba(255, 255, 255, 0.2) !important; /* Optional: Light background */
+}
+
+/* Hover effect for tab buttons */
+ion-tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effect for menu items */
+.menu-item {
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+:root {
+  --ion-background-color: #ffffff; /* Global background color */
+  --ion-item-background: #ffffff; /* Global item background color */
+  --ion-item-color: #701f1f; /* Global item text color */
+}

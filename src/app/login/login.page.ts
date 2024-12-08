@@ -1,17 +1,17 @@
+// login.page.ts
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { environment } from 'src/environments/environment';
-import { MenuController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-
 export class LoginPage implements OnInit {
-
   // Initialize Firebase
   oApp = initializeApp(environment.firebase);
 
@@ -20,34 +20,78 @@ export class LoginPage implements OnInit {
 
   gEmail = "";
   gPassword = "";
+  
+  // New property to toggle password visibility
+  showPassword = false;
 
-  constructor(private menuCtrl: MenuController) { }
+  constructor(
+    private menuCtrl: MenuController, 
+    private router: Router,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {}
 
-  // Disable the menu when the login page is entered
   ionViewWillEnter() {
-    this.menuCtrl.enable(false); // Disable menu
+    this.menuCtrl.enable(false);
   }
 
-  // Re-enable the menu when leaving the login page
   ionViewWillLeave() {
-    this.menuCtrl.enable(true); // Re-enable menu
+    this.menuCtrl.enable(true);
   }
 
-  loginUser() {
-    signInWithEmailAndPassword(this.oAuth, this.gEmail, this.gPassword)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-        // Navigate to the map page or handle further logic
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+  // Toggle password visibility
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  async loginUser() {
+    // Basic validation
+    if (!this.gEmail || !this.gPassword) {
+      this.showErrorAlert('Please enter both email and password');
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.oAuth, this.gEmail, this.gPassword);
+      
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      
+      // Navigate to the colleges page after successful login
+      this.router.navigate(['/colleges']);
+    } catch (error: any) {
+      // Handle different Firebase authentication errors
+      let errorMessage = 'An unknown error occurred';
+      
+      switch (error.code) {
+        case 'auth/invalid-credential':
+          errorMessage = 'Invalid email or password';
+          break;
+        case 'auth/wrong-password':
+          errorMessage = 'Incorrect password';
+          break;
+        case 'auth/user-not-found':
+          errorMessage = 'No user found with this email';
+          break;
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email format';
+          break;
+      }
+
+      // Show error alert
+      this.showErrorAlert(errorMessage);
+    }
+  }
+
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Login Error',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

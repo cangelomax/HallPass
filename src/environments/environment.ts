@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDYalnw8oHplm1bSxZrMDAp5SrEgJAQdeU",
-    authDomain: "hallpass-b01af.firebaseapp.com",
-    projectId: "hallpass-b01af",
-    storageBucket: "hallpass-b01af.firebasestorage.app",
-    messagingSenderId: "462424379896",
-    appId: "1:462424379896:web:46c2c3aec2c73bb04a060d",
-    measurementId: "G-H7RVGG61JD"
+    apiKey: "AIzaSyDU3eVtFa6u1RpB8FwxgEKt6TBIo7oN5AQ",
+    authDomain: "hallpass-a5a34.firebaseapp.com",
+    projectId: "hallpass-a5a34",
+    storageBucket: "hallpass-a5a34.firebasestorage.app",
+    messagingSenderId: "506209761701",
+    appId: "1:506209761701:web:5386b76d0f70f96205504c",
+    measurementId: "G-550BMNJBHH"
   }
 };
 
